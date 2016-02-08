@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <title>TreeYaks</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    
+    
+    <style type="text/css" media="screen">
+      body {
+        background-color: #ECECEC;
+      }
+    
+      .yak {
+        font-family: 'Gotham Rounded A', 'Gotham Rounded B', HelveticaNeue, 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !important;
+        background-color: white;
+        padding: 5px;
+        padding-left: 15px;
+        margin: 10px;
+        margin-left: 10px;
+        border: 1px solid #999;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        width: 500px;
+        overflow: auto;
+        display: block;
+      }
+      
+      .created_at {
+        float: left;
+      }
+      
+      .votes {
+        float: right;
+      }
+      
+      #welcome {
+        color: #212121;
+        margin-left: 13px;
+        font-family: "Tahoma", "Arial Black", sans-serif;
+      }
+      
+      #subwelcome {
+        margin-left: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="welcome">Welcome to TreeYaks!</h2>
+    
+    <div id="subwelcome">
+      <p><a href="/new_yak">Create a new yak</a></p>
+      Sort by: <a href="/?order=new">New</a> | <a href="/?order=hot">Hot</a>
+    </div>
+    
+    
+    <% for yak in yaks %>
+      <div class="row">
+        <div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <p><%= yak.contents %></p>
+            </div>
+            <div class="card-action">
+              <a href="#">Upvote</a>
+              <a href="#">Downvote</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>    
+    
+    
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.upvote').on('click', function(e) {
+          console.log("got upvote");
+          console.log($(this).get('yakid'));
+          
+          // $.ajax({
+          //   method: "POST",
+          //   url: "/upvote?yak_id=<%= yak.id %>"
+          // })
+          //   .done(function(msg) {
+          //     console.log(msg);
+          //   });
+          
+          // /upvote?yak_id=<%= yak.id %>
+          // /downvote?yak_id=<%= yak.id %>
+        });
+      });
+    </script>
+  </body>
+</html>
