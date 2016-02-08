@@ -2,6 +2,7 @@ require 'rubygems'
 require 'active_record'
 require 'sinatra'
 require 'sinatra/activerecord'
+# require 'sinatra/json'
 
 set :database, { adapter: 'sqlite3', database: 'treeyak.sqlite3' }
 
@@ -46,20 +47,25 @@ post '/new_yak' do
   redirect to('/')
 end
 
+get '/wtf' do
+  'hi'
+end
+
 post '/upvote' do
+  yak_id = params['yak_id']
+  
   # BEGIN YOUR CODE HERE
   
-  # In this section, you should increement the yak's upvotes by 1 and return the new number of upvotes in json.
+  # In this section, you should increment the yak's upvotes by 1 and return the new number of upvotes in json.
   # (Note: This will be called via AJAX, so you don't need to render any html or redirect to any other page.)
   
   # END YOUR CODE HERE
   
   # SOLUTION
-  yak = Yak.where(id: params['yak_id']).first
+  yak = Yak.where(id: yak_id).first
   yak.upvotes += 1
-  puts yak.upvotes
   yak.save
-  yak.upvotes # return new number of upvotes to client
+  yak.upvotes.to_s
   # END SOLUTION
 end
 
@@ -68,21 +74,16 @@ post '/downvote' do
   
   # BEGIN YOUR CODE HERE
   
-  # In this section, you should decrement the yak's upvotes by 1. If the yak has less than -2 votes, then you should delete the yak and return JSON indicating that the yak has been deleted. Otherwise, return the new number of upvotes this yak has.
-  # This will be called via AJAX, so you don't need to render any html or redirect to any other page.
-  # Hint: You should be able to reuse some code from the '/upvote' method.
+  # In this section, you should decrement the yak's upvotes by 1 and return the new number of upvotes in json.
+  # (Note: This will be called via AJAX, so you don't need to render any html or redirect to any other page.)
   
   # END YOUR CODE HERE
   
   # SOLUTION
-  yak = Yak.where(id: params['yak_id']).first
+  yak = Yak.where(id: yak_id).first
   yak.upvotes -= 1
-  if yak.upvotes <= -2
-    yak.destroy!
-    # render json to indicate yak has been flagged/deleted
-  end
   yak.save
-  yak.upvotes # return new number of upvotes to client
+  yak.upvotes.to_s
   # END SOLUTION
 end
 
@@ -97,6 +98,8 @@ get '/hot' do
   # SOLUTION
   yaks = Yak.order(upvotes: :desc)
   # END SOLUTION
+  
+  erb :index, locals: { yaks: yaks }
 end
 
 get '/new' do
@@ -110,4 +113,6 @@ get '/new' do
   # SOLUTION
   yaks = Yak.order(created_at: :desc)
   # END SOLUTION
+  
+  erb :index, locals: { yaks: yaks }
 end

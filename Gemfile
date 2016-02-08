@@ -5,3 +5,4 @@ gem 'sqlite3'
 gem 'rake'
 
 gem 'sinatra_more'
+gem 'thin'

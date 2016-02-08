@@ -54,7 +54,7 @@
     
     <div id="subwelcome">
       <p><a href="/new_yak">Create a new yak</a></p>
-      Sort by: <a href="/?order=new">New</a> | <a href="/?order=hot">Hot</a>
+      Sort by: <a href="/new">New</a> | <a href="/hot">Hot</a>
     </div>
     
     
@@ -66,8 +66,13 @@
               <p><%= yak.contents %></p>
             </div>
             <div class="card-action">
-              <a href="#">Upvote</a>
-              <a href="#">Downvote</a>
+              <span style="color: yellow;">
+                <span id="<%= yak.id %>-upvotes"><%= yak.upvotes %></span> upvotes
+              </span>
+              <span style="float: right;">
+                <a href="#" class="upvote" data-yakid="<%= yak.id %>">Upvote</a>
+                <a href="#" class="downvote" data-yakid="<%= yak.id %>">Downvote</a>
+              </span>
             </div>
           </div>
         </div>
@@ -77,21 +82,37 @@
     
     <script type="text/javascript">
       $(document).ready(function() {
+        
         $('.upvote').on('click', function(e) {
-          console.log("got upvote");
-          console.log($(this).get('yakid'));
+          e.preventDefault();
           
-          // $.ajax({
-          //   method: "POST",
-          //   url: "/upvote?yak_id=<%= yak.id %>"
-          // })
-          //   .done(function(msg) {
-          //     console.log(msg);
-          //   });
+          var yak_id = $(this).data('yakid');
           
-          // /upvote?yak_id=<%= yak.id %>
-          // /downvote?yak_id=<%= yak.id %>
+          $.ajax({
+            method: "POST",
+            url: "/upvote?yak_id=" + yak_id
+          })
+          .done(function(msg) {
+            // console.log(msg);
+            $("#" + yak_id + "-upvotes").text(msg);
+          });
         });
+        
+        $('.downvote').on('click', function(e) {
+          e.preventDefault();
+          
+          var yak_id = $(this).data('yakid');
+          
+          $.ajax({
+            method: "POST",
+            url: "/downvote?yak_id=" + yak_id
+          })
+          .done(function(msg) {
+            // console.log(msg);
+            $("#" + yak_id + "-upvotes").text(msg);
+          });
+        });
+        
       });
     </script>
   </body>
