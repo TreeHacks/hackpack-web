@@ -1,4 +1,5 @@
 # Web Development Hackpack
+*Come join us on [#hackpack-web](https://treehacks-2016.slack.com/messages/hackpack-web) on Slack to get help, hang out, and show off your project!*
 
 ## Introduction
 
