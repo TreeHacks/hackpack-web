@@ -2,7 +2,6 @@ require 'rubygems'
 require 'active_record'
 require 'sinatra'
 require 'sinatra/activerecord'
-# require 'sinatra/json'
 
 set :database, { adapter: 'sqlite3', database: 'treeyak.sqlite3' }
 
@@ -33,10 +32,6 @@ post '/new_yak' do
   # END YOUR CODE HERE
 
   redirect to('/')
-end
-
-get '/wtf' do
-  'hi'
 end
 
 post '/upvote' do
