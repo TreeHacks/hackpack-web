@@ -137,3 +137,7 @@ end
 ### Extension: Comments
 
 Congratulations! You've now built a fully functional app with the ability to create new yaks, upvote and downvote, and sort. If you're really feeling ambitious, add the ability to comment on yaks. This is pretty challenging and will require you to do a little bit of research of your own, so don't be afraid to ask for help on Slack if you get stuck or want a hint!
+
+### License
+MIT
+
