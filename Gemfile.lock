@@ -21,7 +21,7 @@ GEM
     i18n (0.7.0)
     json (1.8.3)
     minitest (5.8.3)
-    rack (1.6.4)
+    rack (1.6.12)
     rack-protection (1.5.3)
       rack
     rake (10.4.2)
